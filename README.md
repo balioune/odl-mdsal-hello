@@ -3,38 +3,39 @@ You need the followings in order to compile and test this project:
 - Java 8
 - Maven 3
 
-### Create the hello project
+### Create the hello project*
 
-mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller \
--DarchetypeArtifactId=opendaylight-startup-archetype \
--DarchetypeVersion=1.2.0-SNAPSHOT \
--DarchetypeRepository=http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/ \
--DarchetypeCatalog=http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/archetype-catalog.xml
+         mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller \
+        -DarchetypeArtifactId=opendaylight-startup-archetype \
+        -DarchetypeVersion=1.2.0-SNAPSHOT \
+        -DarchetypeRepository=http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/ \
+        -DarchetypeCatalog=http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/archetype-catalog.xml
 
-## And responding to the prompts as follows
+## And responding to the prompts as follows:
 
-Define value for property 'groupId': : org.opendaylight.hello
-Define value for property 'artifactId': : hello
-Define value for property 'package':  org.opendaylight.hello: : 
-Define value for property 'classPrefix':  Hello: : 
-Define value for property 'copyright': : Alioune, BA.
+        Define value for property 'groupId': : org.opendaylight.hello
+        Define value for property 'artifactId': : hello
+        Define value for property 'package':  org.opendaylight.hello: : 
+        Define value for property 'classPrefix':  Hello: : 
+        Define value for property 'copyright': : Alioune, BA.
 
 ## Build the project
 
-cd hello/
-mvn clean install -DskipTests
+        cd hello/
+
+        mvn clean install -DskipTests
 
 ## Running the project
-cd karaf/target/assembly/bin
-./karaf
+        cd karaf/target/assembly/bin
+        ./karaf
 
 - Verifying
 
 At the karaf prompt type and wait to see a message :
 
-log:tail
+        log:tail
 
 The entry point of the project is the class HelloProvider. Feel free to modify it and verify the output on logs.
 
-impl/src/main/java/org/opendaylight/hello/impl/HelloProvider.java
+        vim impl/src/main/java/org/opendaylight/hello/impl/HelloProvider.java
 
