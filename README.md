@@ -3,7 +3,7 @@ You need the followings in order to compile and test this project:
 - Java 8
 - Maven 3
 
-### Create the hello project*
+### Create the hello project:
 
          mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller \
         -DarchetypeArtifactId=opendaylight-startup-archetype \
