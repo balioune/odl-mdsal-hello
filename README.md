@@ -4,29 +4,29 @@ $username is the input given by internal ODL Apps (features) or users that invoq
 
 ### Model a simple HelloWorld RPC
 
-                               module hello {
-                                    yang-version 1;
-                                    namespace "urn:opendaylight:params:xml:ns:yang:hello";
-                                    prefix "hello";
-                                    
-                                    revision "2015-01-05" {
-					description "Initial revision of hello model";
-                                    }
-                                    
-                                    rpc hello-world {
-					input {
-                                            leaf name {
-                                              type string;
-                                            }
-					}
-                                    
-					output {
-                                            leaf greeting {
-                                              type string;
-                                            }
-					}
-                                   }
-				}
+        module hello {
+            yang-version 1;
+            namespace "urn:opendaylight:params:xml:ns:yang:hello";
+            prefix "hello";
+        
+            revision "2015-01-05" {
+                description "Initial revision of hello model";
+            }
+            
+            rpc hello-world {
+                input {
+                  leaf name {
+                    type string;
+                  }
+                }
+                
+                output {
+                  leaf greeting {
+                    type string;
+                  }
+                }
+            }
+        }
 
 
 ### Create a new file
