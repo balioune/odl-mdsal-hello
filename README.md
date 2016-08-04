@@ -6,10 +6,10 @@ You need the followings in order to compile and test this project:
 ### Create the hello project:
 
          mvn archetype:generate -DarchetypeGroupId=org.opendaylight.controller \
-        -DarchetypeArtifactId=opendaylight-startup-archetype \
-        -DarchetypeVersion=1.2.0-SNAPSHOT \
-        -DarchetypeRepository=http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/ \
-        -DarchetypeCatalog=http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/archetype-catalog.xml
+         -DarchetypeArtifactId=opendaylight-startup-archetype \
+         -DarchetypeVersion=1.1.2-Beryllium-SR2 \
+         -DarchetypeRepository=http://nexus.opendaylight.org/content/repositories/opendaylight.release/ \
+         -DarchetypeCatalog=https://nexus.opendaylight.org/content/repositories/opendaylight.release/archetype-catalog.xml
 
 ## And responding to the prompts as follows:
 
