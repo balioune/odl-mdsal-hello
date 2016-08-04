@@ -11,10 +11,18 @@ import static org.ops4j.pax.exam.CoreOptions.composite;
 import static org.ops4j.pax.exam.CoreOptions.maven;
 import static org.ops4j.pax.exam.karaf.options.KarafDistributionOption.editConfigurationFilePut;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opendaylight.controller.mdsal.it.base.AbstractMdsalTestBase;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.HelloService;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.HelloWorldInput;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.HelloWorldInputBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.HelloWorldOutput;
+import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.karaf.options.LogLevelOption.LogLevel;
@@ -66,5 +74,21 @@ public class HelloIT extends AbstractMdsalTestBase {
     @Test
     public void testhelloFeatureLoad() {
         Assert.assertTrue(true);
+    }
+    
+
+    @Test
+    public void testRPC() throws InterruptedException, ExecutionException {
+        String name = "Alioune BA  ";
+        HelloService service = getSession().getRpcService(HelloService.class);
+
+        HelloWorldInput input = new HelloWorldInputBuilder()
+                .setName(name)
+                .build();
+        Future<RpcResult<HelloWorldOutput>> outputFuture = service.helloWorld(input);
+        RpcResult<HelloWorldOutput> outputResult = outputFuture.get();
+        Assert.assertTrue("RPC was unsuccessful", outputResult.isSuccessful());
+        Assert.assertEquals("Did not receive the expected response to helloWorld RPC", "Hello " + name,
+                outputResult.getResult().getGreeting());
     }
 }

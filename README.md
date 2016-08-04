@@ -1,75 +1,17 @@
-### Create hello RPC the will return 'hello + $username'
+### Test HelloIT
 
-$username is the input given by internal ODL Apps (features) or users that invoque the RPC
+In this part we will manually test our HelloWorld RPC. It can be seen as an invocation of our RPC by another ODL App.
 
-### Model a simple HelloWorld RPC
+             Edit HelloIT class in the package org.opendaylight.hello.it
 
-        module hello {
-            yang-version 1;
-            namespace "urn:opendaylight:params:xml:ns:yang:hello";
-            prefix "hello";
-        
-            revision "2015-01-05" {
-                description "Initial revision of hello model";
-            }
-            
-            rpc hello-world {
-                input {
-                  leaf name {
-                    type string;
-                  }
-                }
-                
-                output {
-                  leaf greeting {
-                    type string;
-                  }
-                }
-            }
-        }
+### Integration test our HelloWorld RPC
 
 
-### Create a new file
+### Debugging your integration test
 
-        vim impl/src/main/java/org/opendaylight/hello/impl/HelloProvider.java
+             cd it/
+             mvn clean install -Dkaraf.debug
 
+This will launch the IT test karaf container listening on port 5005.
 
-
-        /*
-         * Copyright © 2015 Alioune, BA. and others.  All rights reserved.
-         *
-         * This program and the accompanying materials are made available under the
-         * terms of the Eclipse Public License v1.0 which accompanies this distribution,
-         * and is available at http://www.eclipse.org/legal/epl-v10.html
-         */
-        package org.opendaylight.hello.impl;
-
-        import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
-        import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
-        import org.opendaylight.controller.sal.binding.api.BindingAwareProvider;
-        import org.opendaylight.yang.gen.v1.urn.opendaylight.params.xml.ns.yang.hello.rev150105.HelloService;
-        import org.slf4j.Logger;
-        import org.slf4j.LoggerFactory;
-
-        public class HelloProvider implements BindingAwareProvider, AutoCloseable {
-
-            private static final Logger LOG = LoggerFactory.getLogger(HelloProvider.class);
-            private RpcRegistration<HelloService> helloService;
-
-            @Override
-            public void onSessionInitiated(ProviderContext session) {
-                helloService = session.addRpcImplementation(HelloService.class, new HelloWorldImpl());
-                LOG.info("HelloProvider Session Initiated");
-            }
-
-            @Override
-            public void close() throws Exception {
-                if (helloService != null) {
-                    helloService.close();
-                }
-                LOG.info("HelloProvider Closed");
-            }
-            
-        }
-
-
+Create a debug config and place a debug point in the testRPC test and walk through your code. 
