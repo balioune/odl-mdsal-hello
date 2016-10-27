@@ -1,17 +1,37 @@
-### Test HelloIT
+## Model a simple HelloWorld GreetingRegistry
 
-In this part we will manually test our HelloWorld RPC. It can be seen as an invocation of our RPC by another ODL App.
+In this part, we are going to create a container for storing a list of greeting.
+By doing that, all users that call the rpc and the greeting they receive are stored in the date tree 
 
-             Edit HelloIT class in the package org.opendaylight.hello.it
+## Edit api/src/main/yang/hello.yang
 
-### Integration test our HelloWorld RPC
+    container greeting-registry {
+        list greeting-registry-entry {
+            key "name";
+            leaf name {
+                type string;
+            }
+            leaf greeting {
+                type string;
+            }
+        }
+    }
+
+Rebuild 
+
+     mvn clean install -DskipTests
 
 
-### Debugging your integration test
+## Make DataBroker available to HelloWorldImp.java
 
-             cd it/
-             mvn clean install -Dkaraf.debug
+    private DataBroker db;
 
-This will launch the IT test karaf container listening on port 5005.
+    public HelloWorldImpl(DataBroker db) {
+        this.db = db;
+    }
+    
+and alter HelloProvider.java to pass pass the DataBroker to the HelloWorldImpl(...) contstructor: 
 
-Create a debug config and place a debug point in the testRPC test and walk through your code. 
+        DataBroker db = session.getSALService(DataBroker.class);
+        helloService = session.addRpcImplementation(HelloService.class, new HelloWorldImpl(db));
+        
