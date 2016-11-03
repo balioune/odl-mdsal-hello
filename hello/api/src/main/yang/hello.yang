@@ -2,7 +2,8 @@ module hello {
     yang-version 1;
     namespace "urn:opendaylight:params:xml:ns:yang:hello";
     prefix "hello";
-
+    //import config { prefix config; revision-date 2013-04-05; }
+    import network-topology {prefix "topo"; revision-date "2013-10-21"; }
     revision "2015-01-05" {
         description "Initial revision of hello model";
     }
@@ -31,5 +32,23 @@ module hello {
                 type string;
             }
         }
+    }
+    
+    grouping foutatoro-top {
+        list salutation {
+            key "name";
+            leaf name {
+                type string;
+            }
+            leaf greeting {
+                type string;
+            }
+        }
+    }
+    augment "/topo:network-topology/topo:topology/topo:node" {
+        description "Augment topology node with a list of greeting";
+            container peer{
+            	uses foutatoro-top;
+            }
     }
 }
