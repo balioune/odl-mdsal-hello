@@ -30,7 +30,7 @@ Rebuild
         this.db = db;
     }
     
-and alter HelloProvider.java to pass pass the DataBroker to the HelloWorldImpl(...) contstructor: 
+and alter HelloProvider.java to pass the DataBroker to the HelloWorldImpl(...) contstructor: 
 
         DataBroker db = session.getSALService(DataBroker.class);
         helloService = session.addRpcImplementation(HelloService.class, new HelloWorldImpl(db));
