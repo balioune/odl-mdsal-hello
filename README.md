@@ -35,3 +35,23 @@ and alter HelloProvider.java to pass the DataBroker to the HelloWorldImpl(...) c
         DataBroker db = session.getSALService(DataBroker.class);
         helloService = session.addRpcImplementation(HelloService.class, new HelloWorldImpl(db));
         
+## Have HelloWorldImpl consult the OPERATIONAL GreetingRegistry when responding
+We do that to avoid adding a greeting that already exists in the data store
+
+            private String readFromGreetingRegistry(HelloWorldInput input) {
+        String result = "Hello " + input.getName();
+        ReadOnlyTransaction transaction = db.newReadOnlyTransaction();
+        InstanceIdentifier<GreetingRegistryEntry> iid = toInstanceIdentifier(input);
+        CheckedFuture<Optional<GreetingRegistryEntry>, ReadFailedException> future =
+                transaction.read(LogicalDatastoreType.OPERATIONAL, iid);
+        Optional<GreetingRegistryEntry> optional = Optional.absent();
+        try {
+            optional = future.checkedGet();
+        } catch (ReadFailedException e) {
+            LOG.warn("Reading greeting failed:",e);
+        }
+        if(optional.isPresent()) {
+            result = optional.get().getGreeting();
+        }
+        return result;
+    }
