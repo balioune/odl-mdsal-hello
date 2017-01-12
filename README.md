@@ -37,5 +37,5 @@ At the karaf prompt type and wait to see a message :
 
 The entry point of the project is the class HelloProvider. Feel free to modify it and verify the output on logs.
 
-        vim impl/src/main/java/org/opendaylight/hello/impl/HelloProvider.java
+        vim impl/src/main/java/org/opendaylight/hello/impl/HelloWordImpl.java
 
