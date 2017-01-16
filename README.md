@@ -37,7 +37,11 @@ At the karaf prompt type and wait to see a message :
 
 The entry point of the project is the class HelloProvider. Feel free to modify it and verify the output on logs.
 
+- Create new class HelloWordImpl
+
         vim impl/src/main/java/org/opendaylight/hello/impl/HelloWordImpl.java
+
+
 
         /*
         * Copyright © 2015 Alioune, BA. and others.  All rights reserved.
